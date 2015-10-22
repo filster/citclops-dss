@@ -1,0 +1,21 @@
+<CE8F98591A6D5C24D.1411805191726><Dataset_name>Ocean colour via citclops app</Dataset_name><Observation_ID>E8F98591A6D5C24D1411805149781</Observation_ID><Date_time>2014-09-27T10:05+0200</Date_time><Measuring_area_type>Point</Measuring_area_type><Location_lat_long>40.618309999999994,0.6179083333333334</Location_lat_long><Datum_coordinate_system>4326:WGS84</Datum_coordinate_system><Parameters_measured>R410</Parameters_measured><Abstract><![CDATA[<LocationAccuracy>
+4.0</LocationAccuracy>
+<CameraParameters>
+<Antibanding>off</Antibanding>
+<AutoExposureLock>false</AutoExposureLock>
+<AutoWhiteBalanceLock>false</AutoWhiteBalanceLock>
+<ColorEffect>none</ColorEffect>
+<ExposureCompensation>0</ExposureCompensation>
+<FlashMode>off</FlashMode>
+<FocalLength>3.5</FocalLength>
+<FocusMode>auto</FocusMode>
+<HorizontalViewAngle>55.0</HorizontalViewAngle>
+<JpegQuality>100</JpegQuality>
+<PictureFormat>256</PictureFormat>
+<PictureSize>1280x720</PictureSize>
+<Scene>auto</Scene>
+<VerticalViewAngle>42.0</VerticalViewAngle>
+<WhiteBalance>auto</WhiteBalance>
+<Zoom>0</Zoom>
+</CameraParameters>
+]]></Abstract><Platform_type>71:Human</Platform_type><device_type>XXX:???????</device_type><device_name>Acer E380</device_name><Station_name>E8F98591A6D5C24D</Station_name><PI>E8F98591A6D5C24D</PI><Station_start_date_time>2014-09-27T10:05+0200</Station_start_date_time><Station_end_date_time>2014-09-27T10:05+0200</Station_end_date_time><Language>en</Language><Profile>STUDENT</Profile><Data_format>JPG</Data_format><Data_file>CE8F98591A6D5C24D.1411805191726.jpg</Data_file><FU_Value>9</FU_Value><viewing_angle>3</viewing_angle><azimuth_angle>163</azimuth_angle><Cloud_Fraction>Clear</Cloud_Fraction><Rain>No</Rain><Bottom>No</Bottom><UserHasSecchiDisk>true</UserHasSecchiDisk><SecchiDiskDepth>1.2</SecchiDiskDepth><UserHasPlasticFUScale>false</UserHasPlasticFUScale></CE8F98591A6D5C24D.1411805191726>

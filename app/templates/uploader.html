@@ -1,0 +1,33 @@
+{#
+    This file is part of the Citclops Project.
+
+    The Citclops Project is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The Citclops Project is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Citclops Project.  If not, see <http://www.gnu.org/licenses/>.
+#}
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+			<title>{{ title }}</title>
+	</head>
+	<body>
+		<h1>Upload an observation (ZIP of XML and JPG/PNG)</h1>	
+		<form action="{{ url_for('upload_file')}}" method="post" enctype="multipart/form-data">	   
+			<p>		Select a file : <input type="file" name="file" size="50" /><input type="hidden" name="upload_method" value="manual" />	   </p>	   <input type="submit" value="Upload It" />
+		</form>
+	</body>
+</html>
+
+
+
+
+

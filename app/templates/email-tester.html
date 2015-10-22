@@ -1,0 +1,37 @@
+{#
+    This file is part of the Citclops Project.
+
+    The Citclops Project is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The Citclops Project is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Citclops Project.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+			<title>{{ title }}</title>
+	</head>
+	<body>
+		<h1>Test the send mail function</h1>	
+		<form action="{{ url_for('emailTransparencySample')}}" method="post" enctype="multipart/form-data">
+         <p> Email: <input type="text" name="email" value="" size="50"/></p>
+         <p> metadata filename: <input type="text" name="metadata_filename" value="1441090950113042376_sadpug.xml" size="50"/></p>
+         <p> image filename: <input type="text" name="image_filename"  value="1441090950113042376_sadpug.jpg" size="50"/></p>
+			<p> <input type="submit" value="Email it!" /> <p>
+		</form>
+	</body>
+</html>
+
+
+
+
+

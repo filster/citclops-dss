@@ -1,0 +1,56 @@
+{#
+    This file is part of the Citclops Project.
+
+    The Citclops Project is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The Citclops Project is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Citclops Project.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+{% extends "layout.html" %}
+{% block extrahead %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css')}}" />
+<style>
+   .dialog {
+     background-color:rgba(0, 0, 0, 0.7);
+   }
+</style>
+{% endblock %}
+{% block body %}
+
+<div id="hmenu">
+	<ul>
+		<li><a href="http://www.citclops.eu/"><img src='/static/img/logo.png' height="36" align="left"></a></li>
+		<li class='citizen'><a href="{{url_for('citizen')}}"><span>Citizen observations</span></a></li>
+		<li >|</li>
+		<li class='decision-maker'><a href="{{url_for('decision_maker')}}"><span>Marine data analyser</span></a></li>
+		<li >|</li>
+		<li class='researcher'><a href="{{url_for('researcher')}}"><span>Marine data repository</span></a></li>
+	</ul>
+</div>
+
+<div id="map" style="width: 99%; height: 95%; position:fixed;"></div>
+<div id="chartstore" style="visibility: hidden"/>
+
+<script type='text/javascript' src='/static/js/maps/KML.js'></script>  
+<script type='text/javascript' src='/static/js/maps/Bing.js'></script>
+
+<script type='text/javascript' src='/static/js/maps/maris_map_functions.js'></script>
+<script type='text/javascript' src='/static/js/maps/citizen.js'></script>
+
+
+<div id="dialog" title="Details"><div>
+
+
+
+{% endblock %}
+
+

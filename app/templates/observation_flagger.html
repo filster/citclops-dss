@@ -1,0 +1,47 @@
+{#
+    This file is part of the Citclops Project.
+
+    The Citclops Project is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The Citclops Project is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Citclops Project.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+<html>
+	<head>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+			<title>observation flagger</title>
+	</head>
+      <script>
+        $(document).ready(function(){
+            $("#flag").click(function(){
+			  var jqxhr = $.post( "{{ url_for('incrermentFlagCount')}}", 
+			          JSON.stringify({'hash_id':$('#hash_id').val()}))
+                      .done(function(response) {
+                        alert(response);
+                      })
+                      .fail(function(error) {
+                         alert('There was an error flagging the observation');
+                         var wind = window.open("", "popupWindow", "width=600,height=600,scrollbars=yes");
+                         wind.document.write(error.responseText);
+                      });
+                    });
+            });
+      </script>
+
+	<body>
+		<h1>Flag a sample as irrelevant</h1>	
+		<p> Observation ID : <input id="hash_id" type="text" name="observation" size="50" />	   </p>
+        <button id="flag">Flag It</button>
+
+	</body>
+</html>

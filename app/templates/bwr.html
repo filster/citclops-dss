@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+{#
+    This file is part of the Citclops Project.
+
+    The Citclops Project is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    The Citclops Project is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with the Citclops Project.  If not, see <http://www.gnu.org/licenses/>.
+#}
+<html>
+<head>
+  <title>Water properties measures</title>
+	<meta charset="utf-8" />
+	
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" />
+	<![endif]-->
+	<link rel="stylesheet" href="/static/css/l.geosearch.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='css/style.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+</head>
+<body>
+
+<div id="hmenu">
+        <ul>
+                <li><a href="http://www.citclops.eu/"><img src='/static/img/logo.png' height="36" align="left"></a></li>
+                <li class='citizen'><a href="{{url_for('citizen')}}"><span>Citizen observations</span></a></li>
+                <li >|</li>
+                <li class='decision-maker'><a href="{{url_for('decision_maker')}}"><span>Marine data analyser</span></a></li>
+                <li >|</li>
+                <li class='researcher'><a href="{{url_for('researcher')}}"><span>Marine data repository</span></a></li>
+        </ul>
+</div>
+
+
+	<div id="map" style="width: 99%; height: 99%; position:fixed;"></div>
+	
+	<script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+	<script src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+	<script src="/static/js/Bing.js"></script>
+	<script src="/static/js/l.control.geosearch.js"></script>
+	<script src="/static/js/l.geosearch.provider.openstreetmap.js"></script>
+	<script type="text/javascript" src="/static/js/L.Graticule.js"></script>
+ 
+	<script>
+	var FU1icon = L.icon({
+    iconUrl: '/static/img/FU1.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+	
+	var FU2icon = L.icon({
+    iconUrl: '/static/img/FU2.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+	
+	var FU3icon = L.icon({
+    iconUrl: '/static/img/FU3.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+	
+	var FU4icon = L.icon({
+    iconUrl: '/static/img/FU4.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+	var FU5icon = L.icon({
+    iconUrl: '/static/img/FU6.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+	
+	var FU6icon = L.icon({
+    iconUrl: '/static/img/FU6.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+	
+	var FU7icon = L.icon({
+    iconUrl: '/static/img/FU7.png', // size of the icon
+	iconSize: [25,40],
+	iconAnchor: [10, 30]
+	});
+		popupOptions = {maxWidth: 300};
+		
+		//Team 1 - Chemnees Poujoulat
+		var colour11=L.marker([32.11510,-12.99490],{icon: FU3icon}).bindPopup('<b>Date: 05-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/1/CFE7663F76EA90789.1420460315814.jpg" width="60"/><br><a href="/static/samples/1/CFE7663F76EA90789.1420460315814.jpg" />Enlarge image</a><br><a href="/static/samples/1/CFE7663F76EA90789.1420460315814.xml" />Metadata</a>', popupOptions);
+		var point11 = new L.LatLng(32.11510,-12.99490);
+		var colour12=L.marker([-12.87290,-32.66860],{icon: FU2icon}).bindPopup('<b>Date: 14-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-300.0km)<br><img src="/static/samples/1/CFE7663F76EA90789.1421242898362.jpg" width="60"/><br><a href="/static/samples/1/CFE7663F76EA90789.1421242898362.jpg" />Enlarge image</a><br><a href="/static/samples/1/CFE7663F76EA90789.1421242898362.xml" />Metadata</a>', popupOptions);
+		var point12 = new L.LatLng(-12.87290,-32.66860);
+		var colour13=L.marker([-56.21580,-89.83760],{icon: FU4icon}).bindPopup('<b>Date: 22-02-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/1/CFE7663F76EA90789.1424641176027.jpg" width="60"/><br><a href="/static/samples/1/CFE7663F76EA90789.1424641176027.jpg" />Enlarge image</a><br><a href="/static/samples/1/CFE7663F76EA90789.1424641176027.xml" />Metadata</a>', popupOptions);
+		var point13 = new L.LatLng(-56.21580,-89.83760);
+		var colour14=L.marker([-1.11000,-24.38420],{icon: FU2icon}).bindPopup('<b>Date: 09-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-100.0km)<br><img src="/static/samples/1/CFE7663F76EA90789.1425915455268.jpg" width="60"/><br><a href="/static/samples/1/CFE7663F76EA90789.1425915455268.jpg" />Enlarge image</a><br><a href="/static/samples/1/CFE7663F76EA90789.1425915455268.xml" />Metadata</a>', popupOptions);
+		var point14 = new L.LatLng(-1.11000,-24.38420);
+		var pointList1=[point11,point12,point13,point14];
+		
+		var polyline1 = new L.polyline(pointList1, {
+		color: 'yellow',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		
+		var team1 = L.layerGroup([colour11,colour12,colour13,colour14,polyline1]);
+		
+		//Team 2 - GAES
+		var colour21=L.marker([33.40730,-10.79280],{icon: FU2icon}).bindPopup('<b>Date: 04-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 1 (in area of +/-100.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1420362967416.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1420362967416.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1420362967416.xml" />Metadata</a>', popupOptions);
+		var point21 = new L.LatLng(33.40730,-10.79280);
+		var colour22=L.marker([31.31000,-12.51020],{icon: FU3icon}).bindPopup('<b>Date: 05-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-50.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1420469579984.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1420469579984.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1420469579984.xml" />Metadata</a>', popupOptions);
+		var point22 = new L.LatLng(31.31000,-12.51020);
+		var colour23=L.marker([27.75150,-14.92890],{icon: FU3icon}).bindPopup('<b>Date: 06-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1420550740613.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1420550740613.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1420550740613.xml" />Metadata</a>', popupOptions);
+		var point23 = new L.LatLng(27.75150,-14.92890);
+		var colour24=L.marker([-0.65010,-28.06280],{icon: FU3icon}).bindPopup('<b>Date: 12-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-250.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1421069700478.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421069700478.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421069700478.xml" />Metadata</a>', popupOptions);
+		var point24 = new L.LatLng(-0.65010,-28.06280);
+		var colour25=L.marker([-9.98600,-30.76320],{icon: FU2icon}).bindPopup('<b>Date: 14-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-100.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1421230914943.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421230914943.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421230914943.xml" />Metadata</a>', popupOptions);
+		var point25 = new L.LatLng(-9.98600,-30.76320);
+		var colour26=L.marker([-17.56710,-32.56590],{icon: FU2icon}).bindPopup('<b>Date: 15-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-300.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1421353689503.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421353689503.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421353689503.xml" />Metadata</a>', popupOptions);
+		var point26 = new L.LatLng(-17.56710,-32.56590);
+		var colour27=L.marker([-21.14010,-33.40200],{icon: FU1icon}).bindPopup('<b>Date: 16-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 3 (in area of +/-150.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1421406402353.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421406402353.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421406402353.xml" />Metadata</a>', popupOptions);
+		var point27 = new L.LatLng(-21.14010,-33.40200);
+		var colour28=L.marker([-41.06490,-15.89210],{icon: FU5icon}).bindPopup('<b>Date: 22-01-2015</b><br>Colour (FU): 5<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1421923956531.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421923956531.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1421923956531.xml" />Metadata</a>', popupOptions);
+		var point28 = new L.LatLng(-41.06490,-15.89210);
+		var colour29=L.marker([-41.71000,-7.20090],{icon: FU4icon}).bindPopup('<b>Date: 23-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422023337664.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422023337664.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422023337664.xml" />Metadata</a>', popupOptions);
+		var point29 = new L.LatLng(-41.71000,-7.20090);
+		var colour210=L.marker([-42.54010,29.64450],{icon: FU4icon}).bindPopup('<b>Date: 28-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422433779557.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422433779557.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422433779557.xml" />Metadata</a>', popupOptions);
+		var point210 = new L.LatLng(-42.54010,29.64450);
+		var colour211=L.marker([-43.61480,36.40450],{icon: FU4icon}).bindPopup('<b>Date: 29-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422525849815.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422525849815.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422525849815.xml" />Metadata</a>', popupOptions);
+		var point211 = new L.LatLng(-43.61480,36.40450);
+		var colour212=L.marker([-43.01870,41.10660],{icon: FU2icon}).bindPopup('<b>Date: 30-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422601298525.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422601298525.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422601298525.xml" />Metadata</a>', popupOptions);
+		var point212 = new L.LatLng(-43.01870,41.10660);
+		var colour213=L.marker([-43.00340,42.27770],{icon: FU3icon}).bindPopup('<b>Date: 30-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422614171728.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422614171728.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422614171728.xml" />Metadata</a>', popupOptions);
+		var point213 = new L.LatLng(-43.00340,42.27770);
+		var colour214=L.marker([-42.56860,45.71480],{icon: FU4icon}).bindPopup('<b>Date: 31-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422681577205.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422681577205.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422681577205.xml" />Metadata</a>', popupOptions);
+		var point214 = new L.LatLng(-42.56860,45.71480);
+		var colour215=L.marker([-42.78410,51.53020],{icon: FU2icon}).bindPopup('<b>Date: 01-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422780441591.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422780441591.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422780441591.xml" />Metadata</a>', popupOptions);
+		var point215 = new L.LatLng(-42.78410,51.53020);
+		var colour216=L.marker([-42.69580,55.41830],{icon: FU3icon}).bindPopup('<b>Date: 02-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1422853331337.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422853331337.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1422853331337.xml" />Metadata</a>', popupOptions);
+		var point216 = new L.LatLng(-42.69580,55.41830);
+		var colour217=L.marker([-41.15320,83.41590],{icon: FU3icon}).bindPopup('<b>Date: 06-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1423188506267.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423188506267.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423188506267.xml" />Metadata</a>', popupOptions);
+		var point217 = new L.LatLng(-41.15320,83.41590);
+		var colour218=L.marker([-43.87190,99.60810],{icon: FU1icon}).bindPopup('<b>Date: 08-02-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1423365991057.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423365991057.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423365991057.xml" />Metadata</a>', popupOptions);
+		var point218 = new L.LatLng(-43.87190,99.60810);
+		var colour219=L.marker([-50.20900,141.44750],{icon: FU3icon}).bindPopup('<b>Date: 13-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1423788553713.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423788553713.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423788553713.xml" />Metadata</a>', popupOptions);
+		var point219 = new L.LatLng(-50.20900,141.44750);
+		var colour220=L.marker([-51.94330,151.40730],{icon: FU2icon}).bindPopup('<b>Date: 14-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1423877456690.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423877456690.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423877456690.xml" />Metadata</a>', popupOptions);
+		var point220 = new L.LatLng(-51.94330,151.40730);
+		var colour221=L.marker([-52.00250,151.81800],{icon: FU1icon}).bindPopup('<b>Date: 14-02-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1423884458576.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423884458576.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423884458576.xml" />Metadata</a>', popupOptions);
+		var point221 = new L.LatLng(-52.00250,151.81800);
+		var colour222=L.marker([-52.41370,161.51210],{icon: FU3icon}).bindPopup('<b>Date: 15-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1423968662232.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423968662232.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1423968662232.xml" />Metadata</a>', popupOptions);
+		var point222 = new L.LatLng(-52.41370,161.51210);
+		var colour223=L.marker([-52.49760,-172.10200],{icon: FU3icon}).bindPopup('<b>Date: 18-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424215445665.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424215445665.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424215445665.xml" />Metadata</a>', popupOptions);
+		var point223 = new L.LatLng(-52.49760,-172.10200);
+		var colour224=L.marker([-52.60980,-152.44090],{icon: FU2icon}).bindPopup('<b>Date: 20-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424388643614.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424388643614.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424388643614.xml" />Metadata</a>', popupOptions);
+		var point224 = new L.LatLng(-52.60980,-152.44090);
+		var colour225=L.marker([-51.98920,-144.31660],{icon: FU3icon}).bindPopup('<b>Date: 20-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424456114537.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424456114537.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424456114537.xml" />Metadata</a>', popupOptions);
+		var point225 = new L.LatLng(-51.98920,-144.31660);
+		var colour226=L.marker([-52.00130,-133.23480],{icon: FU3icon}).bindPopup('<b>Date: 21-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424548851236.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424548851236.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424548851236.xml" />Metadata</a>', popupOptions);
+		var point226 = new L.LatLng(-52.00130,-133.23480);
+		var colour227=L.marker([-52.87340,-110.45860],{icon: FU3icon}).bindPopup('<b>Date: 24-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424736906360.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424736906360.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424736906360.xml" />Metadata</a>', popupOptions);
+		var point227 = new L.LatLng(-52.87340,-110.45860);
+		var colour228=L.marker([-53.41420,-102.21830],{icon: FU2icon}).bindPopup('<b>Date: 24-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424800643735.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424800643735.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424800643735.xml" />Metadata</a>', popupOptions);
+		var point228 = new L.LatLng(-53.41420,-102.21830);
+		var colour229=L.marker([-54.34420,-97.58100],{icon: FU3icon}).bindPopup('<b>Date: 25-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424866276987.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424866276987.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424866276987.xml" />Metadata</a>', popupOptions);
+		var point229 = new L.LatLng(-54.34420,-97.58100);
+		var colour230=L.marker([-55.79260,-88.51510],{icon: FU3icon}).bindPopup('<b>Date: 26-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1424959297309.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424959297309.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1424959297309.xml" />Metadata</a>', popupOptions);
+		var point230 = new L.LatLng(-55.79260,-88.51510);
+		var colour231=L.marker([-56.26820,-77.55820],{icon: FU4icon}).bindPopup('<b>Date: 27-02-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425039937072.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425039937072.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425039937072.xml" />Metadata</a>', popupOptions);
+		var point231 = new L.LatLng(-56.26820,-77.55820);
+		var colour232=L.marker([-55.55930,-65.28160],{icon: FU1icon}).bindPopup('<b>Date: 28-02-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 7 (in area of +/-250.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425148519817.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425148519817.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425148519817.xml" />Metadata</a>', popupOptions);
+		var point232 = new L.LatLng(-55.55930,-65.28160);
+		var colour233=L.marker([-54.25660,-62.69230],{icon: FU3icon}).bindPopup('<b>Date: 01-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 7 (in area of +/-250.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425215382039.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425215382039.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425215382039.xml" />Metadata</a>', popupOptions);
+		var point233 = new L.LatLng(-54.25660,-62.69230);
+		var colour234=L.marker([-48.46480,-51.98390],{icon: FU3icon}).bindPopup('<b>Date: 03-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425388833981.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425388833981.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425388833981.xml" />Metadata</a>', popupOptions);
+		var point234 = new L.LatLng(-48.46480,-51.98390);
+		var colour235=L.marker([-47.67140,-50.92320],{icon: FU2icon}).bindPopup('<b>Date: 03-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425402460372.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425402460372.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425402460372.xml" />Metadata</a>', popupOptions);
+		var point235 = new L.LatLng(-47.67140,-50.92320);
+		var colour236=L.marker([-44.74770,-47.15050],{icon: FU2icon}).bindPopup('<b>Date: 04-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425474171238.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425474171238.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425474171238.xml" />Metadata</a>', popupOptions);
+		var point236 = new L.LatLng(-44.74770,-47.15050);
+		var colour237=L.marker([-42.75920,-44.67540],{icon: FU4icon}).bindPopup('<b>Date: 05-03-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425556283613.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425556283613.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425556283613.xml" />Metadata</a>', popupOptions);
+		var point237 = new L.LatLng(-42.75920,-44.67540);
+		var colour238=L.marker([-36.48050,-35.56750],{icon: FU1icon}).bindPopup('<b>Date: 07-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425730934937.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425730934937.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425730934937.xml" />Metadata</a>', popupOptions);
+		var point238 = new L.LatLng(-36.48050,-35.56750);
+		var colour239=L.marker([-34.25240,-32.78020],{icon: FU1icon}).bindPopup('<b>Date: 08-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-300.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425812762724.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425812762724.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425812762724.xml" />Metadata</a>', popupOptions);
+		var point239 = new L.LatLng(-34.25240,-32.78020);
+		var colour240=L.marker([-25.75150,-29.86970],{icon: FU2icon}).bindPopup('<b>Date: 10-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1425986508288.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425986508288.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1425986508288.xml" />Metadata</a>', popupOptions);
+		var point240 = new L.LatLng(-25.75150,-29.86970);
+		var colour241=L.marker([-16.67340,-29.72800],{icon: FU1icon}).bindPopup('<b>Date: 12-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-50.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426165044002.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426165044002.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426165044002.xml" />Metadata</a>', popupOptions);
+		var point241 = new L.LatLng(-16.67340,-29.72800);
+		var colour242=L.marker([-6.88670,-29.35730],{icon: FU1icon}).bindPopup('<b>Date: 14-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426331180069.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426331180069.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426331180069.xml" />Metadata</a>', popupOptions);
+		var point242 = new L.LatLng(-6.88670,-29.35730);
+		var colour243=L.marker([-1.24390,-29.20970],{icon: FU1icon}).bindPopup('<b>Date: 15-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426417658320.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426417658320.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426417658320.xml" />Metadata</a>', popupOptions);
+		var point243 = new L.LatLng(-1.24390,-29.20970);
+		var colour244=L.marker([2.39530,-28.83760],{icon: FU1icon}).bindPopup('<b>Date: 16-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426508768468.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426508768468.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426508768468.xml" />Metadata</a>', popupOptions);
+		var point244 = new L.LatLng(2.39530,-28.83760);
+		var colour245=L.marker([5.70820,-29.66840],{icon: FU2icon}).bindPopup('<b>Date: 17-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-50.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426595930857.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426595930857.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426595930857.xml" />Metadata</a>', popupOptions);
+		var point245 = new L.LatLng(5.70820,-29.66840);
+		var colour246=L.marker([9.19660,-30.62470],{icon: FU3icon}).bindPopup('<b>Date: 18-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-100.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426676714208.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426676714208.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426676714208.xml" />Metadata</a>', popupOptions);
+		var point246 = new L.LatLng(9.19660,-30.62470);
+		var colour247=L.marker([17.90490,-31.40790],{icon: FU2icon}).bindPopup('<b>Date: 20-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-50.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1426851859724.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426851859724.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1426851859724.xml" />Metadata</a>', popupOptions);
+		var point247 = new L.LatLng(17.90490,-31.40790);
+		var colour248=L.marker([25.42600,-30.22520],{icon: FU2icon}).bindPopup('<b>Date: 22-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-50.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1427023280825.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1427023280825.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1427023280825.xml" />Metadata</a>', popupOptions);
+		var point248 = new L.LatLng(25.42600,-30.22520);
+		var colour249=L.marker([27.38740,-20.72610],{icon: FU1icon}).bindPopup('<b>Date: 24-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1427217961537.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1427217961537.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1427217961537.xml" />Metadata</a>', popupOptions);
+		var point249 = new L.LatLng(27.38740,-20.72610);
+		var colour250=L.marker([35.83600,-2.07370],{icon: FU3icon}).bindPopup('<b>Date: 30-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-250.0km)<br><img src="/static/samples/2/C7F7A8D5C6261C21E.1427699976523.jpg" width="60"/><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1427699976523.jpg" />Enlarge image</a><br><a href="/static/samples/2/C7F7A8D5C6261C21E.1427699976523.xml" />Metadata</a>', popupOptions);
+		var point250 = new L.LatLng(35.83600,-2.07370);
+		var pointList2=[point21,point22,point23,point24,point25,point26,point27,point28,point29,point210,point211,point212,point213,point214,point215,point216,point217,point218,point219,point220,point221,point222,point223,point224,point225,point226,point227,point228,point229,point230,point231,point232,point233,point234,point235,point236,point237,point238,point239,point240,point241,point242,point243,point244,point245,point246,point247,point248,point249,point250];
+		
+		var polyline2 = new L.polyline(pointList2, {
+		color: 'green',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		var team2 = L.layerGroup([colour21,colour22,colour23,colour24,colour25,colour26,colour27,colour28,colour29,colour210,colour211,colour212,colour213,colour214,colour215,colour216,colour217,colour218,colour219,colour220,colour221,colour222,colour223,colour224,colour225,colour226,colour227,colour228,colour229,colour230,colour231,colour232,colour233,colour234,colour235,colour236,colour237,colour238,colour239,colour240,colour241,colour242,colour243,colour244,colour245,colour246,colour247,colour248,colour249,colour250,polyline2]);
+		
+		//Team 3 - Hugo Boss
+		var colour31=L.marker([41.37490,2.17977],{icon: FU2icon}).bindPopup('<b>Date: 29-12-2014</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-200.0km)<br><img src="/static/samples/3/CC8C5ADC98BC96B00.1419837926166.jpg" width="60"/><br><a href="/static/samples/3/CC8C5ADC98BC96B00.1419837926166.jpg" />Enlarge image</a><br><a href="/static/samples/3/CC8C5ADC98BC96B00.1419837926166.xml" />Metadata</a>', popupOptions);
+		var point31 = new L.LatLng(41.37490,2.17977);
+		var pointList3=[point31];
+
+		var polyline3 = new L.polyline(pointList3, {
+		color: 'blue',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		var team3 = L.layerGroup([colour31,polyline3]);
+		
+		/*
+		//Team 4 - Neutrogena
+		var polyline4 = new L.polyline(pointList4, {
+		color: 'purple',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		*/
+		var team4 = L.layerGroup([]);
+		
+		//Team 5 - OPOO
+		var colour51=L.marker([36.06390,-1.90770],{icon: FU3icon}).bindPopup('<b>Date: 02-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-250.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1420196574708.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420196574708.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420196574708.xml" />Metadata</a>', popupOptions);
+		var point51 = new L.LatLng(36.06390,-1.90770);
+		var colour52=L.marker([34.78760,-10.84450],{icon: FU2icon}).bindPopup('<b>Date: 04-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-100.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1420381351232.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420381351232.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420381351232.xml" />Metadata</a>', popupOptions);
+		var point52 = new L.LatLng(34.78760,-10.84450);
+		var colour53=L.marker([33.20190,-12.28380],{icon: FU3icon}).bindPopup('<b>Date: 05-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 4 (in area of +/-100.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1420451680644.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420451680644.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420451680644.xml" />Metadata</a>', popupOptions);
+		var point53 = new L.LatLng(33.20190,-12.28380);
+		var colour54=L.marker([29.51030,-14.55720],{icon: FU3icon}).bindPopup('<b>Date: 06-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-100.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1420565167979.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420565167979.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420565167979.xml" />Metadata</a>', popupOptions);
+		var point54 = new L.LatLng(29.51030,-14.55720);
+		var colour55=L.marker([14.15160,-26.92840],{icon: FU2icon}).bindPopup('<b>Date: 10-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-200.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1420902944080.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420902944080.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420902944080.xml" />Metadata</a>', popupOptions);
+		var point55 = new L.LatLng(14.15160,-26.92840);
+		var colour56=L.marker([9.12680,-27.35490],{icon: FU3icon}).bindPopup('<b>Date: 11-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1420986836778.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420986836778.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1420986836778.xml" />Metadata</a>', popupOptions);
+		var point56 = new L.LatLng(9.12680,-27.35490);
+		var colour57=L.marker([4.63490,-26.97240],{icon: FU3icon}).bindPopup('<b>Date: 12-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421071515304.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421071515304.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421071515304.xml" />Metadata</a>', popupOptions);
+		var point57 = new L.LatLng(4.63490,-26.97240);
+		var colour58=L.marker([3.00320,-27.19200],{icon: FU3icon}).bindPopup('<b>Date: 13-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421155683351.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421155683351.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421155683351.xml" />Metadata</a>', popupOptions);
+		var point58 = new L.LatLng(3.00320,-27.19200);
+		var colour59=L.marker([0.27750,-28.66000],{icon: FU2icon}).bindPopup('<b>Date: 14-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421227926292.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421227926292.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421227926292.xml" />Metadata</a>', popupOptions);
+		var point59 = new L.LatLng(0.27750,-28.66000);
+		var colour510=L.marker([-8.17300,-31.48500],{icon: FU1icon}).bindPopup('<b>Date: 16-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-200.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421412603850.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421412603850.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421412603850.xml" />Metadata</a>', popupOptions);
+		var point510 = new L.LatLng(-8.17300,-31.48500);
+		var colour511=L.marker([-12.87390,-32.24220],{icon: FU2icon}).bindPopup('<b>Date: 17-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-250.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421502823624.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421502823624.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421502823624.xml" />Metadata</a>', popupOptions);
+		var point511 = new L.LatLng(-12.87390,-32.24220);
+		var colour512=L.marker([-16.92380,-33.04360],{icon: FU2icon}).bindPopup('<b>Date: 18-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-350.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421574186427.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421574186427.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421574186427.xml" />Metadata</a>', popupOptions);
+		var point512 = new L.LatLng(-16.92380,-33.04360);
+		var colour513=L.marker([-20.81540,-35.02900],{icon: FU1icon}).bindPopup('<b>Date: 19-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 3 (in area of +/-50.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421672716630.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421672716630.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421672716630.xml" />Metadata</a>', popupOptions);
+		var point513 = new L.LatLng(-20.81540,-35.02900);
+		var colour514=L.marker([-24.72340,-35.48070],{icon: FU3icon}).bindPopup('<b>Date: 20-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-200.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421755437726.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421755437726.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421755437726.xml" />Metadata</a>', popupOptions);
+		var point514 = new L.LatLng(-24.72340,-35.48070);
+		var colour515=L.marker([-27.69260,-33.27250],{icon: FU1icon}).bindPopup('<b>Date: 21-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421844180287.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421844180287.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421844180287.xml" />Metadata</a>', popupOptions);
+		var point515 = new L.LatLng(-27.69260,-33.27250);
+		var colour516=L.marker([-30.17530,-31.88640],{icon: FU1icon}).bindPopup('<b>Date: 22-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-250.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1421918210480.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421918210480.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1421918210480.xml" />Metadata</a>', popupOptions);
+		var point516 = new L.LatLng(-30.17530,-31.88640);
+		var colour517=L.marker([-33.06800,-30.12720],{icon: FU2icon}).bindPopup('<b>Date: 23-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1422018243355.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422018243355.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422018243355.xml" />Metadata</a>', popupOptions);
+		var point517 = new L.LatLng(-33.06800,-30.12720);
+		var colour518=L.marker([-35.99840,-22.79010],{icon: FU2icon}).bindPopup('<b>Date: 25-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1422194198829.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422194198829.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422194198829.xml" />Metadata</a>', popupOptions);
+		var point518 = new L.LatLng(-35.99840,-22.79010);
+		var colour519=L.marker([-39.33400,-13.96450],{icon: FU4icon}).bindPopup('<b>Date: 27-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1422353066892.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422353066892.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422353066892.xml" />Metadata</a>', popupOptions);
+		var point519 = new L.LatLng(-39.33400,-13.96450);
+		var colour520=L.marker([-39.75000,-7.28810],{icon: FU4icon}).bindPopup('<b>Date: 28-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/CAF2FE3BDEE29DAFB.1422432710674.jpg" width="60"/><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422432710674.jpg" />Enlarge image</a><br><a href="/static/samples/5/CAF2FE3BDEE29DAFB.1422432710674.xml" />Metadata</a>', popupOptions);
+		var point520 = new L.LatLng(-39.75000,-7.28810);
+		var colour521=L.marker([-41.88250,49.40720],{icon: FU3icon}).bindPopup('<b>Date: 06-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1423205961738.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423205961738.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423205961738.xml" />Metadata</a>', popupOptions);
+		var point521 = new L.LatLng(-41.88250,49.40720);
+		var colour522=L.marker([-40.87670,54.30710],{icon: FU4icon}).bindPopup('<b>Date: 07-02-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1423294156430.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423294156430.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423294156430.xml" />Metadata</a>', popupOptions);
+		var point522 = new L.LatLng(-40.87670,54.30710);
+		var colour523=L.marker([-42.50390,56.97930],{icon: FU2icon}).bindPopup('<b>Date: 08-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1423349133793.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423349133793.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423349133793.xml" />Metadata</a>', popupOptions);
+		var point523 = new L.LatLng(-42.50390,56.97930);
+		var colour524=L.marker([-43.55330,63.43010],{icon: FU3icon}).bindPopup('<b>Date: 09-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 4 (in area of +/-200.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1423450840764.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423450840764.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423450840764.xml" />Metadata</a>', popupOptions);
+		var point524 = new L.LatLng(-43.55330,63.43010);
+		var colour525=L.marker([-42.41830,79.08100],{icon: FU3icon}).bindPopup('<b>Date: 11-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-250.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1423616523177.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423616523177.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423616523177.xml" />Metadata</a>', popupOptions);
+		var point525 = new L.LatLng(-42.41830,79.08100);
+		var colour526=L.marker([-42.69790,93.37390],{icon: FU3icon}).bindPopup('<b>Date: 13-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1423784915724.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423784915724.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423784915724.xml" />Metadata</a>', popupOptions);
+		var point526 = new L.LatLng(-42.69790,93.37390);
+		var colour527=L.marker([-44.51600,102.57430],{icon: FU3icon}).bindPopup('<b>Date: 14-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1423888744920.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1423888744920.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1423888744920.xml" />Metadata</a>', popupOptions);
+		var point527 = new L.LatLng(-44.51600,102.57430);
+		var colour528=L.marker([-45.86270,115.86700],{icon: FU2icon}).bindPopup('<b>Date: 16-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424045582865.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424045582865.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424045582865.xml" />Metadata</a>', popupOptions);
+		var point528 = new L.LatLng(-45.86270,115.86700);
+		var colour529=L.marker([-48.03220,129.79930],{icon: FU3icon}).bindPopup('<b>Date: 17-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424203013260.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424203013260.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424203013260.xml" />Metadata</a>', popupOptions);
+		var point529 = new L.LatLng(-48.03220,129.79930);
+		var colour530=L.marker([-52.50230,158.14730],{icon: FU3icon}).bindPopup('<b>Date: 20-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424442842867.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424442842867.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424442842867.xml" />Metadata</a>', popupOptions);
+		var point530 = new L.LatLng(-52.50230,158.14730);
+		var colour531=L.marker([-53.27210,164.46440],{icon: FU3icon}).bindPopup('<b>Date: 21-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424527648692.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424527648692.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424527648692.xml" />Metadata</a>', popupOptions);
+		var point531 = new L.LatLng(-53.27210,164.46440);
+		var colour532=L.marker([-54.48760,179.05000],{icon: FU2icon}).bindPopup('<b>Date: 23-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424648863344.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424648863344.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424648863344.xml" />Metadata</a>', popupOptions);
+		var point532 = new L.LatLng(-54.48760,179.05000);
+		var colour533=L.marker([-54.18050,-162.99850],{icon: FU3icon}).bindPopup('<b>Date: 25-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424817272869.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424817272869.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424817272869.xml" />Metadata</a>', popupOptions);
+		var point533 = new L.LatLng(-54.18050,-162.99850);
+		var colour534=L.marker([-52.71910,-156.37070],{icon: FU3icon}).bindPopup('<b>Date: 25-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424897228539.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424897228539.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424897228539.xml" />Metadata</a>', popupOptions);
+		var point534 = new L.LatLng(-52.71910,-156.37070);
+		var colour535=L.marker([-52.42150,-152.05080],{icon: FU3icon}).bindPopup('<b>Date: 26-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1424974628663.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1424974628663.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1424974628663.xml" />Metadata</a>', popupOptions);
+		var point535 = new L.LatLng(-52.42150,-152.05080);
+		var colour536=L.marker([-52.64940,-136.94210],{icon: FU4icon}).bindPopup('<b>Date: 28-02-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1425134244649.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425134244649.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425134244649.xml" />Metadata</a>', popupOptions);
+		var point536 = new L.LatLng(-52.64940,-136.94210);
+		var colour537=L.marker([-52.27680,-115.83450],{icon: FU3icon}).bindPopup('<b>Date: 02-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1425320274921.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425320274921.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425320274921.xml" />Metadata</a>', popupOptions);
+		var point537 = new L.LatLng(-52.27680,-115.83450);
+		var colour538=L.marker([-52.64210,-108.05410],{icon: FU2icon}).bindPopup('<b>Date: 03-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1425400307350.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425400307350.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425400307350.xml" />Metadata</a>', popupOptions);
+		var point538 = new L.LatLng(-52.64210,-108.05410);
+		var colour539=L.marker([-52.80490,-91.28320],{icon: FU2icon}).bindPopup('<b>Date: 05-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1425576341869.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425576341869.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425576341869.xml" />Metadata</a>', popupOptions);
+		var point539 = new L.LatLng(-52.80490,-91.28320);
+		var colour540=L.marker([-56.17210,-76.03980],{icon: FU2icon}).bindPopup('<b>Date: 07-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1425716341202.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425716341202.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425716341202.xml" />Metadata</a>', popupOptions);
+		var point540 = new L.LatLng(-56.17210,-76.03980);
+		var colour541=L.marker([-55.47920,-63.59440],{icon: FU2icon}).bindPopup('<b>Date: 08-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 7 (in area of +/-250.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1425824933701.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425824933701.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425824933701.xml" />Metadata</a>', popupOptions);
+		var point541 = new L.LatLng(-55.47920,-63.59440);
+		var colour542=L.marker([-51.46890,-55.62870],{icon: FU3icon}).bindPopup('<b>Date: 09-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 5 (in area of +/-350.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1425905891886.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425905891886.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425905891886.xml" />Metadata</a>', popupOptions);
+		var point542 = new L.LatLng(-51.46890,-55.62870);
+		var colour543=L.marker([-48.67480,-51.18760],{icon: FU2icon}).bindPopup('<b>Date: 10-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1425965136627.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1425965136627.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1425965136627.xml" />Metadata</a>', popupOptions);
+		var point543 = new L.LatLng(-48.67480,-51.18760);
+		var colour544=L.marker([-38.24780,-29.78440],{icon: FU2icon}).bindPopup('<b>Date: 13-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1426251265159.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426251265159.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426251265159.xml" />Metadata</a>', popupOptions);
+		var point544 = new L.LatLng(-38.24780,-29.78440);
+		var colour545=L.marker([-28.68580,-25.25760],{icon: FU1icon}).bindPopup('<b>Date: 15-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1426389725378.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426389725378.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426389725378.xml" />Metadata</a>', popupOptions);
+		var point545 = new L.LatLng(-28.68580,-25.25760);
+		var colour546=L.marker([-27.05360,-24.62930],{icon: FU2icon}).bindPopup('<b>Date: 15-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1426413747965.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426413747965.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426413747965.xml" />Metadata</a>', popupOptions);
+		var point546 = new L.LatLng(-27.05360,-24.62930);
+		var colour547=L.marker([-23.63170,-23.65870],{icon: FU1icon}).bindPopup('<b>Date: 16-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): Unknown<br><img src="/static/samples/5/C9A0E19248AAF6274.1426483624172.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426483624172.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426483624172.xml" />Metadata</a>', popupOptions);
+		var point547 = new L.LatLng(-23.63170,-23.65870);
+		var colour548=L.marker([-20.42940,-25.08500],{icon: FU2icon}).bindPopup('<b>Date: 17-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 1 (in area of +/-50.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1426565162298.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426565162298.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426565162298.xml" />Metadata</a>', popupOptions);
+		var point548 = new L.LatLng(-20.42940,-25.08500);
+		var colour549=L.marker([-14.60390,-26.72990],{icon: FU1icon}).bindPopup('<b>Date: 18-03-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 2 (in area of +/-100.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1426667541755.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426667541755.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426667541755.xml" />Metadata</a>', popupOptions);
+		var point549 = new L.LatLng(-14.60390,-26.72990);
+		var colour550=L.marker([-7.79030,-26.75150],{icon: FU2icon}).bindPopup('<b>Date: 19-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-200.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1426766389301.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426766389301.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426766389301.xml" />Metadata</a>', popupOptions);
+		var point550 = new L.LatLng(-7.79030,-26.75150);
+		var colour551=L.marker([-2.39440,-26.46760],{icon: FU2icon}).bindPopup('<b>Date: 21-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-100.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1426912255888.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1426912255888.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1426912255888.xml" />Metadata</a>', popupOptions);
+		var point551 = new L.LatLng(-2.39440,-26.46760);
+		var colour552=L.marker([-0.70960,-26.41740],{icon: FU3icon}).bindPopup('<b>Date: 22-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-100.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427001432377.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427001432377.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427001432377.xml" />Metadata</a>', popupOptions);
+		var point552 = new L.LatLng(-0.70960,-26.41740);
+		var colour553=L.marker([4.14300,-29.21210],{icon: FU2icon}).bindPopup('<b>Date: 24-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-100.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427184022902.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427184022902.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427184022902.xml" />Metadata</a>', popupOptions);
+		var point553 = new L.LatLng(4.14300,-29.21210);
+		var colour554=L.marker([7.44510,-30.93040],{icon: FU2icon}).bindPopup('<b>Date: 25-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427280655144.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427280655144.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427280655144.xml" />Metadata</a>', popupOptions);
+		var point554 = new L.LatLng(7.44510,-30.93040);
+		var colour555=L.marker([10.08320,-31.21310],{icon: FU3icon}).bindPopup('<b>Date: 26-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-150.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427348416265.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427348416265.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427348416265.xml" />Metadata</a>', popupOptions);
+		var point555 = new L.LatLng(10.08320,-31.21310);
+		var colour556=L.marker([14.24820,-30.95100],{icon: FU2icon}).bindPopup('<b>Date: 27-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-150.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427449444533.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427449444533.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427449444533.xml" />Metadata</a>', popupOptions);
+		var point556 = new L.LatLng(14.24820,-30.95100);
+		var colour557=L.marker([30.29250,-24.83090],{icon: FU3icon}).bindPopup('<b>Date: 31-03-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 2 (in area of +/-50.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427779488953.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427779488953.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427779488953.xml" />Metadata</a>', popupOptions);
+		var point557 = new L.LatLng(30.29250,-24.83090);
+		var colour558=L.marker([33.40120,-21.79520],{icon: FU1icon}).bindPopup('<b>Date: 01-04-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 3 (in area of +/-100.0km)<br><img src="/static/samples/5/C9A0E19248AAF6274.1427863760758.jpg" width="60"/><br><a href="/static/samples/5/C9A0E19248AAF6274.1427863760758.jpg" />Enlarge image</a><br><a href="/static/samples/5/C9A0E19248AAF6274.1427863760758.xml" />Metadata</a>', popupOptions);
+		var point558 = new L.LatLng(33.40120,-21.79520);
+		var pointList5=[point51,point52,point53,point54,point55,point56,point57,point58,point59,point510,point511,point512,point513,point514,point515,point516,point517,point518,point519,point520,point521,point522,point523,point524,point525,point526,point527,point528,point529,point530,point531,point532,point533,point534,point535,point536,point537,point538,point539,point540,point541,point542,point543,point544,point545,point546,point547,point548,point549,point550,point551,point552,point553,point554,point555,point556,point557,point558];
+		
+		var polyline5 = new L.polyline(pointList5, {
+		color: 'red',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		var team5 = L.layerGroup([colour51,colour52,colour53,colour54,colour55,colour56,colour57,colour58,colour59,colour510,colour511,colour512,colour513,colour514,colour515,colour516,colour517,colour518,colour519,colour520,colour521,colour522,colour523,colour524,colour525,colour526,colour527,colour528,colour529,colour530,colour531,colour532,colour533,colour534,colour535,colour536,colour537,colour538,colour539,colour540,colour541,colour542,colour543,colour544,colour545,colour546,colour547,colour548,colour549,colour550,colour551,colour552,colour553,colour554,colour555,colour556,colour557,colour558,polyline5]);
+
+		/*
+		//Team 6 - Renault Captur
+		var polyline6 = new L.polyline(pointList6, {
+		color: 'purple',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		*/
+		var team6 = L.layerGroup([]);
+		
+		/*
+		//Team 7 - Spirit of Hungary
+		var polyline7 = new L.polyline(pointList7, {
+		color: 'white',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		*/
+		var team7 = L.layerGroup([]);
+		
+		//Team 8 - We Are Water
+		var colour81=L.marker([36.28680,-1.43470],{icon: FU3icon}).bindPopup('<b>Date: 02-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 3 (in area of +/-200.0km)<br><img src="/static/samples/8/C98B29F5222520408.1420188670577.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1420188670577.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1420188670577.xml" />Metadata</a>', popupOptions);
+		var point81 = new L.LatLng(36.28680,-1.43470);
+		var colour82=L.marker([35.67770,-4.40020],{icon: FU4icon}).bindPopup('<b>Date: 03-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): 3 (in area of +/-300.0km)<br><img src="/static/samples/8/C98B29F5222520408.1420283061308.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1420283061308.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1420283061308.xml" />Metadata</a>', popupOptions);
+		var point82 = new L.LatLng(35.67770,-4.40020);
+		var colour83=L.marker([-19.65880,-32.36810],{icon: FU1icon}).bindPopup('<b>Date: 18-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 3 (in area of +/-250.0km)<br><img src="/static/samples/8/C98B29F5222520408.1421588278887.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1421588278887.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1421588278887.xml" />Metadata</a>', popupOptions);
+		var point83 = new L.LatLng(-19.65880,-32.36810);
+		var colour84=L.marker([-19.65880,-32.36810],{icon: FU1icon}).bindPopup('<b>Date: 18-01-2015</b><br>Colour (FU): 1<br>Historic Colour (FU): 3 (in area of +/-250.0km)<br><img src="/static/samples/8/C98B29F5222520408.1421588514490.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1421588514490.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1421588514490.xml" />Metadata</a>', popupOptions);
+		var point84 = new L.LatLng(-19.65880,-32.36810);
+		var colour85=L.marker([-30.96900,-31.88740],{icon: FU2icon}).bindPopup('<b>Date: 21-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-200.0km)<br><img src="/static/samples/8/C98B29F5222520408.1421853596746.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1421853596746.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1421853596746.xml" />Metadata</a>', popupOptions);
+		var point85 = new L.LatLng(-30.96900,-31.88740);
+		var colour86=L.marker([-36.10860,-18.28660],{icon: FU2icon}).bindPopup('<b>Date: 24-01-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1422112135900.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1422112135900.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1422112135900.xml" />Metadata</a>', popupOptions);
+		var point86 = new L.LatLng(-36.10860,-18.28660);
+		var colour87=L.marker([-37.81910,-13.79400],{icon: FU4icon}).bindPopup('<b>Date: 25-01-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1422183676166.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1422183676166.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1422183676166.xml" />Metadata</a>', popupOptions);
+		var point87 = new L.LatLng(-37.81910,-13.79400);
+		var colour88=L.marker([-40.03970,-9.06910],{icon: FU3icon}).bindPopup('<b>Date: 26-01-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1422277281272.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1422277281272.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1422277281272.xml" />Metadata</a>', popupOptions);
+		var point88 = new L.LatLng(-40.03970,-9.06910);
+		var colour89=L.marker([-41.84170,36.91630],{icon: FU5icon}).bindPopup('<b>Date: 02-02-2015</b><br>Colour (FU): 5<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1422884540257.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1422884540257.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1422884540257.xml" />Metadata</a>', popupOptions);
+		var point89 = new L.LatLng(-41.84170,36.91630);
+		var colour810=L.marker([-42.60450,72.91130],{icon: FU2icon}).bindPopup('<b>Date: 07-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 3 (in area of +/-250.0km)<br><img src="/static/samples/8/C98B29F5222520408.1423300943160.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1423300943160.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1423300943160.xml" />Metadata</a>', popupOptions);
+		var point810 = new L.LatLng(-42.60450,72.91130);
+		var colour811=L.marker([-45.41300,93.83910],{icon: FU3icon}).bindPopup('<b>Date: 10-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1423535859778.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1423535859778.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1423535859778.xml" />Metadata</a>', popupOptions);
+		var point811 = new L.LatLng(-45.41300,93.83910);
+		var colour812=L.marker([-43.87650,116.88600],{icon: FU3icon}).bindPopup('<b>Date: 13-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1423798793380.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1423798793380.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1423798793380.xml" />Metadata</a>', popupOptions);
+		var point812 = new L.LatLng(-43.87650,116.88600);
+		var colour813=L.marker([-48.47360,134.38970],{icon: FU2icon}).bindPopup('<b>Date: 16-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424044776839.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424044776839.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424044776839.xml" />Metadata</a>', popupOptions);
+		var point813 = new L.LatLng(-48.47360,134.38970);
+		var colour814=L.marker([-50.94780,143.32750],{icon: FU4icon}).bindPopup('<b>Date: 17-02-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424153013629.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424153013629.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424153013629.xml" />Metadata</a>', popupOptions);
+		var point814 = new L.LatLng(-50.94780,143.32750);
+		var colour815=L.marker([-51.17160,146.78500],{icon: FU2icon}).bindPopup('<b>Date: 18-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424220247163.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424220247163.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424220247163.xml" />Metadata</a>', popupOptions);
+		var point815 = new L.LatLng(-51.17160,146.78500);
+		var colour816=L.marker([-52.01829,161.20467],{icon: FU4icon}).bindPopup('<b>Date: 19-02-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424377318288.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424377318288.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424377318288.xml" />Metadata</a>', popupOptions);
+		var point816 = new L.LatLng(-52.01829,161.20467);
+		var colour817=L.marker([-52.01260,162.06680],{icon: FU3icon}).bindPopup('<b>Date: 20-02-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424385983152.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424385983152.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424385983152.xml" />Metadata</a>', popupOptions);
+		var point817 = new L.LatLng(-52.01260,162.06680);
+		var colour818=L.marker([-54.57300,-166.36800],{icon: FU2icon}).bindPopup('<b>Date: 23-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424723697439.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424723697439.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424723697439.xml" />Metadata</a>', popupOptions);
+		var point818 = new L.LatLng(-54.57300,-166.36800);
+		var colour819=L.marker([-53.49440,-158.24480],{icon: FU2icon}).bindPopup('<b>Date: 25-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424817511429.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424817511429.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424817511429.xml" />Metadata</a>', popupOptions);
+		var point819 = new L.LatLng(-53.49440,-158.24480);
+		var colour820=L.marker([-51.94800,-146.30900],{icon: FU2icon}).bindPopup('<b>Date: 26-02-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1424987130123.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1424987130123.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1424987130123.xml" />Metadata</a>', popupOptions);
+		var point820 = new L.LatLng(-51.94800,-146.30900);
+		var colour821=L.marker([-53.68280,-94.28490],{icon: FU2icon}).bindPopup('<b>Date: 04-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1425492121223.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1425492121223.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1425492121223.xml" />Metadata</a>', popupOptions);
+		var point821 = new L.LatLng(-53.68280,-94.28490);
+		var colour822=L.marker([-56.56680,-69.10720],{icon: FU2icon}).bindPopup('<b>Date: 07-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 5 (in area of +/-200.0km)<br><img src="/static/samples/8/C98B29F5222520408.1425748244582.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1425748244582.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1425748244582.xml" />Metadata</a>', popupOptions);
+		var point822 = new L.LatLng(-56.56680,-69.10720);
+		var colour823=L.marker([-41.04640,-29.95830],{icon: FU4icon}).bindPopup('<b>Date: 12-03-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1426180432727.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1426180432727.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1426180432727.xml" />Metadata</a>', popupOptions);
+		var point823 = new L.LatLng(-41.04640,-29.95830);
+		var colour824=L.marker([-41.04640,-29.95830],{icon: FU4icon}).bindPopup('<b>Date: 12-03-2015</b><br>Colour (FU): 4<br>Historic Colour (FU): Unknown<br><img src="/static/samples/8/C98B29F5222520408.1426180635260.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1426180635260.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1426180635260.xml" />Metadata</a>', popupOptions);
+		var point824 = new L.LatLng(-41.04640,-29.95830);
+		var colour825=L.marker([-7.16970,-27.76280],{icon: FU2icon}).bindPopup('<b>Date: 19-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 1 (in area of +/-200.0km)<br><img src="/static/samples/8/C98B29F5222520408.1426774504689.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1426774504689.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1426774504689.xml" />Metadata</a>', popupOptions);
+		var point825 = new L.LatLng(-7.16970,-27.76280);
+		var colour826=L.marker([-1.62370,-29.76830],{icon: FU2icon}).bindPopup('<b>Date: 21-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 1 (in area of +/-100.0km)<br><img src="/static/samples/8/C98B29F5222520408.1426947970315.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1426947970315.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1426947970315.xml" />Metadata</a>', popupOptions);
+		var point826 = new L.LatLng(-1.62370,-29.76830);
+		var colour827=L.marker([18.46960,-32.97970],{icon: FU2icon}).bindPopup('<b>Date: 28-03-2015</b><br>Colour (FU): 2<br>Historic Colour (FU): 2 (in area of +/-150.0km)<br><img src="/static/samples/8/C98B29F5222520408.1427543422029.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1427543422029.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1427543422029.xml" />Metadata</a>', popupOptions);
+		var point827 = new L.LatLng(18.46960,-32.97970);
+		var colour828=L.marker([33.16990,-15.49100],{icon: FU3icon}).bindPopup('<b>Date: 03-04-2015</b><br>Colour (FU): 3<br>Historic Colour (FU): 1 (in area of +/-150.0km)<br><img src="/static/samples/8/C98B29F5222520408.1428065314054.jpg" width="60"/><br><a href="/static/samples/8/C98B29F5222520408.1428065314054.jpg" />Enlarge image</a><br><a href="/static/samples/8/C98B29F5222520408.1428065314054.xml" />Metadata</a>', popupOptions);
+		var point828 = new L.LatLng(33.16990,-15.49100);
+		var pointList8=[point81,point82,point83,point84,point85,point86,point87,point88,point89,point810,point811,point812,point813,point814,point815,point816,point817,point818,point819,point820,point821,point822,point823,point824,point825,point826,point827,point828];
+		
+		var polyline8 = new L.polyline(pointList8, {
+		color: 'brown',
+		weight: 3,
+		opacity: 0.5,
+		smoothFactor: 1
+		});
+		
+		var team8 = L.layerGroup([colour81,colour82,colour83,colour84,colour85,colour86,colour87,colour88,colour89,colour810,colour811,colour812,colour813,colour814,colour815,colour816,colour817,colour818,colour819,colour820,colour821,colour822,colour823,colour824,colour825,colour826,colour827,colour828,polyline8]);
+		
+		var nexrad3 = new L.BingLayer("ApngjAcpeMY0zAp6qJvJJgnmg0xbBBPN3g8CWh4vKVMCALcT-NAn5ON-MnKV2fHE");
+		var baseLayers = {
+			"Maps": nexrad3
+		};
+			
+		map = new L.Map('map', { 
+			center: new L.LatLng(40.63, 0.7), 
+			zoomControl: false,
+			zoom: 3,
+			layers: [team1,team2,team3,team4,team5,team6,team7,team8,nexrad3]
+		});
+		
+		
+		var overlayMaps = {
+		"Cheminées Poujoulat": team1,
+		"GAES Centros Auditivos": team2,
+		"Hugo Boss": team3,
+		"Neutrogena": team4,
+		"One Planet, One Ocean & Pharmaton": team5,
+		"Renault Captur": team6,
+		"Spirit of Hungary": team7,
+		"We Are Water": team8
+		};
+		
+		//Define the search
+		new L.Control.GeoSearch({
+        provider: new L.GeoSearch.Provider.OpenStreetMap(),
+		position: 'topleft'
+		}).addTo(map);
+		
+		
+		L.graticule().addTo(map);
+		// Specify divisions every 10 degrees
+		L.graticule({ interval: 10 }).addTo(map);
+
+		
+		//Define control buttons
+		L.control.layers(null, overlayMaps,{position: 'bottomright',collapsed:false}).addTo(map);
+		L.control.zoom({ position: 'bottomright' }).addTo(map);
+		
+
+		
+//General help and information button
+	var info = L.control();
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+	function myPopup2() {
+		window.open( "http://www.barcelonaworldrace.org/en/science/oceanographic-observatory/citclops-project")
+	}
+	function myPopup3() {
+		window.open( "http://www.citclops.eu")
+	}
+	info.update = function (props) {
+		this._div.innerHTML = '<img src="/static/img/bwr-logo.png" alt="BWR logo" height="100" onClick="myPopup2()" style="cursor:pointer"/> <img src="/static/img/CitclopsLOGOn.jpg" alt="Citclops logo" height="100" onClick="myPopup3()" style="cursor:pointer"/>';
+	};
+	info.addTo(map);
+
+	</script>
+</body>
+</html>

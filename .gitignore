@@ -1,0 +1,5 @@
+/cache.sqlite
+/satallite-extraction.py
+*.pyc
+/tmp/*
+/logs/*
